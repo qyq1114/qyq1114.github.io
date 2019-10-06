@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 前端主流MVVM框架双向绑定原理简述：AngularJs（脏检测机制）：脏检查机制，主要是依据 $watch 对象来监测数据是否更新。 Vue.js（前端数据对象劫持）：Vue.js是通过数据劫持结合发布者-订阅者模式的方式来实现的。 React（手动触发绑定）：React本身并没有提到双向绑定的概念，但是可以利用setState api对states数据进行更新，从而实现数据层于视图层的同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试题总结">
+<meta property="og:url" content="http://yoursite.com/2019/10/06/前端面试题总结/index.html">
+<meta property="og:site_name" content="Yuqi Qin&#39;s Blog">
+<meta property="og:description" content="1. 前端主流MVVM框架双向绑定原理简述：AngularJs（脏检测机制）：脏检查机制，主要是依据 $watch 对象来监测数据是否更新。 Vue.js（前端数据对象劫持）：Vue.js是通过数据劫持结合发布者-订阅者模式的方式来实现的。 React（手动触发绑定）：React本身并没有提到双向绑定的概念，但是可以利用setState api对states数据进行更新，从而实现数据层于视图层的同">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-06T09:40:53.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端面试题总结">
+<meta name="twitter:description" content="1. 前端主流MVVM框架双向绑定原理简述：AngularJs（脏检测机制）：脏检查机制，主要是依据 $watch 对象来监测数据是否更新。 Vue.js（前端数据对象劫持）：Vue.js是通过数据劫持结合发布者-订阅者模式的方式来实现的。 React（手动触发绑定）：React本身并没有提到双向绑定的概念，但是可以利用setState api对states数据进行更新，从而实现数据层于视图层的同">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/06/前端面试题总结/">
+
+
+
+
+
+  <title>前端面试题总结 | Yuqi Qin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yuqi Qin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/前端面试题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yuqi Qin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/qyq.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuqi Qin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端面试题总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T17:38:19+08:00">
+                2019-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-前端主流MVVM框架双向绑定原理简述："><a href="#1-前端主流MVVM框架双向绑定原理简述：" class="headerlink" title="1. 前端主流MVVM框架双向绑定原理简述："></a>1. 前端主流MVVM框架双向绑定原理简述：</h2><h3 id="AngularJs（脏检测机制）："><a href="#AngularJs（脏检测机制）：" class="headerlink" title="AngularJs（脏检测机制）："></a>AngularJs（脏检测机制）：</h3><p>脏检查机制，主要是依据 $watch 对象来监测数据是否更新。</p>
+<h3 id="Vue-js（前端数据对象劫持）："><a href="#Vue-js（前端数据对象劫持）：" class="headerlink" title="Vue.js（前端数据对象劫持）："></a>Vue.js（前端数据对象劫持）：</h3><p>Vue.js是通过数据劫持结合发布者-订阅者模式的方式来实现的。</p>
+<h3 id="React（手动触发绑定）："><a href="#React（手动触发绑定）：" class="headerlink" title="React（手动触发绑定）："></a>React（手动触发绑定）：</h3><p>React本身并没有提到双向绑定的概念，但是可以利用setState api对states数据进行更新，从而实现数据层于视图层的同步更新（结构更新，重新“渲染”子树（虚拟DOM），找出最小改动步骤，打包DOM操作，对真实DOM树进行修改）。</p>
+<h2 id="2-简述Vue的响应式原理"><a href="#2-简述Vue的响应式原理" class="headerlink" title="2. 简述Vue的响应式原理"></a>2. 简述Vue的响应式原理</h2><p>当一个Vue实例创建时，vue会遍历data选项的属性，用 Object.defineProperty 将它们转为 getter/setter并且在内部追踪相关依赖，在属性被访问和修改时通知变化。<br>每个组件实例都有相应的 watcher 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="3-Vue-给对象新增属性"><a href="#3-Vue-给对象新增属性" class="headerlink" title="3. Vue-给对象新增属性"></a>3. Vue-给对象新增属性</h2><p>官方定义：</p>
+<p>Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 (root-level reactive property)。然而它可以使用 Vue.set(object, key, value) 方法将响应属性添加到嵌套的对象上：</p>
+<p>Vue.set(vm.obj, ‘e’, 0)<br>您还可以使用 vm.$set 实例方法，这也是全局 Vue.set 方法的别名：</p>
+<p>this.$set(this.obj,’e’,02)</p>
+<p>有时你想向已有对象上添加一些属性，例如使用 Object.assign() 或 _.extend() 方法来添加属性。但是，添加到对象上的新属性不会触发更新。在这种情况下可以创建一个新的对象，让它包含原对象的属性和新的属性：</p>
+<p>// 代替 Object.assign(this.obj, { a: 1, e: 2 })<br>this.obj= Object.assign({}, this.obj, { a: 1, e: 2 })</p>
+<h2 id="4-网页从输入网址到渲染完成经历了哪些过程？"><a href="#4-网页从输入网址到渲染完成经历了哪些过程？" class="headerlink" title="4. 网页从输入网址到渲染完成经历了哪些过程？"></a>4. 网页从输入网址到渲染完成经历了哪些过程？</h2><p>大致可以分为如下7步：</p>
+<ul>
+<li>输入网址</li>
+<li>发送到DNS服务器，并获取域名对应的web服务器对应的ip地址</li>
+<li>与web服务器建立TCP连接</li>
+<li>浏览器向web服务器发送http请求</li>
+<li>web服务器响应请求，并返回指定url的数据（或错误信息，或重定向的新的url地址）</li>
+<li>浏览器下载web服务器返回的数据及解析html源文件</li>
+<li>生成DOM树，解析css和js，渲染页面，直至显示完成</li>
+</ul>
+<h2 id="5-jQuery获取的dom对象和原生的dom对象有何区别？"><a href="#5-jQuery获取的dom对象和原生的dom对象有何区别？" class="headerlink" title="5.  jQuery获取的dom对象和原生的dom对象有何区别？"></a>5.  jQuery获取的dom对象和原生的dom对象有何区别？</h2><p>js原生获取的dom是一个对象，jQuery对象就是一个数组对象，其实就是选择出来的元素的数组集合，所以说他们两者是不同的对象类型不等价。</p>
+<p>原生DOM对象转jQuery对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var box = document.getElementById(&apos;box&apos;);</span><br><span class="line">var $box = $(box);</span><br></pre></td></tr></table></figure>
+
+<p>jQuery对象转原生DOM对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var $box = $(&apos;#box&apos;);</span><br><span class="line">var box = $box[0];</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-v-model语法糖"><a href="#6-v-model语法糖" class="headerlink" title="6. v-model语法糖"></a>6. v-model语法糖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;input v-model=&quot;something&quot;&gt;</span><br><span class="line">等于</span><br><span class="line">&lt;input v-bind:value=&quot;something&quot; v-on:input=&quot;something = $event.target.value&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>v-model=”something”则表示将value值绑定在something上，当值发生改变时触发绑定的oninput事件。oninput事件绑定的函数是将触发oninput事件的目标（该input）的value值赋值给something这个变量。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/06/Object.defineProperty/" rel="next" title="Object.defineProperty()">
+                <i class="fa fa-chevron-left"></i> Object.defineProperty()
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/qyq.jpg" alt="Yuqi Qin">
+            
+              <p class="site-author-name" itemprop="name">Yuqi Qin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/qyq1114" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:qyq1114@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/qyq1114" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/lady1114" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前端主流MVVM框架双向绑定原理简述："><span class="nav-number">1.</span> <span class="nav-text">1. 前端主流MVVM框架双向绑定原理简述：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AngularJs（脏检测机制）："><span class="nav-number">1.1.</span> <span class="nav-text">AngularJs（脏检测机制）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-js（前端数据对象劫持）："><span class="nav-number">1.2.</span> <span class="nav-text">Vue.js（前端数据对象劫持）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React（手动触发绑定）："><span class="nav-number">1.3.</span> <span class="nav-text">React（手动触发绑定）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-简述Vue的响应式原理"><span class="nav-number">2.</span> <span class="nav-text">2. 简述Vue的响应式原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Vue-给对象新增属性"><span class="nav-number">3.</span> <span class="nav-text">3. Vue-给对象新增属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-网页从输入网址到渲染完成经历了哪些过程？"><span class="nav-number">4.</span> <span class="nav-text">4. 网页从输入网址到渲染完成经历了哪些过程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-jQuery获取的dom对象和原生的dom对象有何区别？"><span class="nav-number">5.</span> <span class="nav-text">5.  jQuery获取的dom对象和原生的dom对象有何区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-v-model语法糖"><span class="nav-number">6.</span> <span class="nav-text">6. v-model语法糖</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuqi Qin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="基础安装 安装node 安装git VSCode  create-react-app基础脚手架安装create-react-app 1npm install -g create-react-app  安装完成后 123create-react-app react-plan cd react-test/npm start  结束后，在浏览器访问localhost:3000,可以看到默认应用 ###">
+<meta name="description" content="两种定义形式的区别1.直接定义123let obj = &amp;#123;&amp;#125;obj.name = &amp;apos;jack&amp;apos;//obj[&amp;apos;name&amp;apos;] = &amp;apos;jack&amp;apos;  等同于 1234567let obj = &amp;#123;&amp;#125;Object.defineProperty(obj,&amp;apos;name&amp;apos;,&amp;#123;    val">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React搭建工程脚手架">
-<meta property="og:url" content="http://yoursite.com/2019/10/06/react1/index.html">
+<meta property="og:title" content="Object.defineProperty()">
+<meta property="og:url" content="http://yoursite.com/2019/10/06/Object.defineProperty/index.html">
 <meta property="og:site_name" content="Yuqi Qin&#39;s Blog">
-<meta property="og:description" content="基础安装 安装node 安装git VSCode  create-react-app基础脚手架安装create-react-app 1npm install -g create-react-app  安装完成后 123create-react-app react-plan cd react-test/npm start  结束后，在浏览器访问localhost:3000,可以看到默认应用 ###">
+<meta property="og:description" content="两种定义形式的区别1.直接定义123let obj = &amp;#123;&amp;#125;obj.name = &amp;apos;jack&amp;apos;//obj[&amp;apos;name&amp;apos;] = &amp;apos;jack&amp;apos;  等同于 1234567let obj = &amp;#123;&amp;#125;Object.defineProperty(obj,&amp;apos;name&amp;apos;,&amp;#123;    val">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-03T03:30:22.000Z">
+<meta property="og:updated_time" content="2019-10-06T09:41:20.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React搭建工程脚手架">
-<meta name="twitter:description" content="基础安装 安装node 安装git VSCode  create-react-app基础脚手架安装create-react-app 1npm install -g create-react-app  安装完成后 123create-react-app react-plan cd react-test/npm start  结束后，在浏览器访问localhost:3000,可以看到默认应用 ###">
+<meta name="twitter:title" content="Object.defineProperty()">
+<meta name="twitter:description" content="两种定义形式的区别1.直接定义123let obj = &amp;#123;&amp;#125;obj.name = &amp;apos;jack&amp;apos;//obj[&amp;apos;name&amp;apos;] = &amp;apos;jack&amp;apos;  等同于 1234567let obj = &amp;#123;&amp;#125;Object.defineProperty(obj,&amp;apos;name&amp;apos;,&amp;#123;    val">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/06/react1/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/06/Object.defineProperty/">
 
 
 
 
 
-  <title>React搭建工程脚手架 | Yuqi Qin's Blog</title>
+  <title>Object.defineProperty() | Yuqi Qin's Blog</title>
   
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/react1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/Object.defineProperty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yuqi Qin">
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">React搭建工程脚手架</h1>
+          <h1 class="post-title" itemprop="name headline">Object.defineProperty()</h1>
         
 
         <div class="post-meta">
@@ -291,7 +291,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T17:12:28+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T17:38:19+08:00">
                 2019-10-06
               </time>
             
@@ -329,20 +329,61 @@
       
 
       
-        <h3 id="基础安装"><a href="#基础安装" class="headerlink" title="基础安装"></a>基础安装</h3><ul>
-<li>安装node</li>
-<li>安装git</li>
-<li>VSCode</li>
-</ul>
-<h3 id="create-react-app基础脚手架"><a href="#create-react-app基础脚手架" class="headerlink" title="create-react-app基础脚手架"></a>create-react-app基础脚手架</h3><p>安装create-react-app</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br></pre></td></tr></table></figure>
+        <h2 id="两种定义形式的区别"><a href="#两种定义形式的区别" class="headerlink" title="两种定义形式的区别"></a>两种定义形式的区别</h2><h3 id="1-直接定义"><a href="#1-直接定义" class="headerlink" title="1.直接定义"></a>1.直接定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">obj.name = &apos;jack&apos;</span><br><span class="line">//obj[&apos;name&apos;] = &apos;jack&apos;</span><br></pre></td></tr></table></figure>
 
-<p>安装完成后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create-react-app react-plan </span><br><span class="line">cd react-test/</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p>等同于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">Object.defineProperty(obj,&apos;name&apos;,&#123;</span><br><span class="line">    value:&apos;jack&apos;,</span><br><span class="line">    writable:true,</span><br><span class="line">    configurable:true,</span><br><span class="line">    enumberable:true</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>结束后，在浏览器访问<code>localhost:3000</code>,可以看到默认应用</p>
-<p>###</p>
+<h3 id="2-Object-defineProperty-定义"><a href="#2-Object-defineProperty-定义" class="headerlink" title="2.Object.defineProperty()定义"></a>2.Object.defineProperty()定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj,&apos;name&apos;,&#123;</span><br><span class="line">    value:&apos;jack&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
+<p>等同于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">Object.defineProperty(obj,&apos;name&apos;,&#123;</span><br><span class="line">    value:&apos;jack&apos;,</span><br><span class="line">    writable:false,</span><br><span class="line">    configurable:false,</span><br><span class="line">    enumberable:false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-defineProperty-语法说明"><a href="#Object-defineProperty-语法说明" class="headerlink" title="Object.defineProperty()语法说明"></a>Object.defineProperty()语法说明</h2><p><code>Object.defineProperty(obj, prop, desc)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj : 需要定义属性的当前对象</span><br><span class="line">prop : 当前需要定义的属性名</span><br><span class="line">desc : 属性描述符</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>描述符</th>
+<th>configurable</th>
+<th>enumerable</th>
+<th>value</th>
+<th>writable</th>
+<th>get</th>
+<th>set</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据描述符</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>存取描述符</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id="描述符参数实例说明"><a href="#描述符参数实例说明" class="headerlink" title="描述符参数实例说明"></a>描述符参数实例说明</h3><h4 id="get-amp-set"><a href="#get-amp-set" class="headerlink" title="get &amp; set"></a>get &amp; set</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get</span><br><span class="line">一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。当访问该属性时，该方法会被执行，方法执行时没有参数传入，但是会传入this对象（由于继承关系，这里的this并不一定是定义该属性的对象）。 默认为 undefined。</span><br><span class="line">set</span><br><span class="line">一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。当属性值修改时，触发执行该方法。该方法将接受唯一参数，即该属性新的参数值。 默认为 undefined。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let Person = &#123;&#125;</span><br><span class="line">let temp = null</span><br><span class="line">Object.defineProperty(Person, &apos;name&apos;, &#123;</span><br><span class="line">  get: function () &#123;</span><br><span class="line">    return temp</span><br><span class="line">  &#125;,</span><br><span class="line">  set: function (val) &#123;</span><br><span class="line">    temp = val</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="configurable"><a href="#configurable" class="headerlink" title="configurable"></a>configurable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">当且仅当该属性的 configurable 为 true 时，该属性描述符才能够被改变，同时该属性也能从对应的对象上被删除。默认为 false。</span><br><span class="line"></span><br><span class="line">这个属性起到两个作用：</span><br><span class="line">(1)目标属性是否可以使用delete删除</span><br><span class="line">(2)目标属性是否可以再次设置特性</span><br></pre></td></tr></table></figure>
+
+<h4 id="enumerable"><a href="#enumerable" class="headerlink" title="enumerable"></a>enumerable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当且仅当该属性的enumerable为true时，该属性才能够出现在对象的枚举属性中。默认为 false。</span><br></pre></td></tr></table></figure>
+
+<h4 id="value"><a href="#value" class="headerlink" title="value"></a>value</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认为 undefined。</span><br></pre></td></tr></table></figure>
+
+<h4 id="writable"><a href="#writable" class="headerlink" title="writable"></a>writable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当且仅当该属性的writable为true时，value才能被赋值运算符改变。默认为 false。</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -366,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/06/npmInstall/" rel="next" title="npm install 时--save-dev和--save的区别">
-                <i class="fa fa-chevron-left"></i> npm install 时--save-dev和--save的区别
+              <a href="/2019/10/06/React搭建工程脚手架/" rel="next" title="React搭建工程脚手架">
+                <i class="fa fa-chevron-left"></i> React搭建工程脚手架
               </a>
             
           </div>
@@ -375,6 +416,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/06/前端面试题总结/" rel="prev" title="前端面试题总结">
+                前端面试题总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -453,7 +498,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -518,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础安装"><span class="nav-number">1.</span> <span class="nav-text">基础安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-react-app基础脚手架"><span class="nav-number">2.</span> <span class="nav-text">create-react-app基础脚手架</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种定义形式的区别"><span class="nav-number">1.</span> <span class="nav-text">两种定义形式的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-直接定义"><span class="nav-number">1.1.</span> <span class="nav-text">1.直接定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Object-defineProperty-定义"><span class="nav-number">1.2.</span> <span class="nav-text">2.Object.defineProperty()定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-defineProperty-语法说明"><span class="nav-number">2.</span> <span class="nav-text">Object.defineProperty()语法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符参数实例说明"><span class="nav-number">2.1.</span> <span class="nav-text">描述符参数实例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-amp-set"><span class="nav-number">2.1.1.</span> <span class="nav-text">get &amp; set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#configurable"><span class="nav-number">2.1.2.</span> <span class="nav-text">configurable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#enumerable"><span class="nav-number">2.1.3.</span> <span class="nav-text">enumerable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#value"><span class="nav-number">2.1.4.</span> <span class="nav-text">value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#writable"><span class="nav-number">2.1.5.</span> <span class="nav-text">writable</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

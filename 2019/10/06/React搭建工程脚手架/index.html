@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="在控制台敲指令时，经常碰到npm install –save-dev和–save 我们在使用 npm install 安装模块的模块的时候 ，一般会使用下面这几种命令形式： 1234567npm install moduleName # 安装模块到项目目录下 npm install -g moduleName # -g 的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm config">
+<meta name="description" content="基础安装 安装node 安装git VSCode  create-react-app基础脚手架安装create-react-app 1npm install -g create-react-app  安装完成后 123create-react-app react-plan cd react-test/npm start  结束后，在浏览器访问localhost:3000,可以看到默认应用 ###">
 <meta property="og:type" content="article">
-<meta property="og:title" content="npm install 时--save-dev和--save的区别">
-<meta property="og:url" content="http://yoursite.com/2019/10/06/npmInstall/index.html">
+<meta property="og:title" content="React搭建工程脚手架">
+<meta property="og:url" content="http://yoursite.com/2019/10/06/React搭建工程脚手架/index.html">
 <meta property="og:site_name" content="Yuqi Qin&#39;s Blog">
-<meta property="og:description" content="在控制台敲指令时，经常碰到npm install –save-dev和–save 我们在使用 npm install 安装模块的模块的时候 ，一般会使用下面这几种命令形式： 1234567npm install moduleName # 安装模块到项目目录下 npm install -g moduleName # -g 的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm config">
+<meta property="og:description" content="基础安装 安装node 安装git VSCode  create-react-app基础脚手架安装create-react-app 1npm install -g create-react-app  安装完成后 123create-react-app react-plan cd react-test/npm start  结束后，在浏览器访问localhost:3000,可以看到默认应用 ###">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-11T02:20:44.000Z">
+<meta property="og:updated_time" content="2019-10-06T09:36:54.499Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="npm install 时--save-dev和--save的区别">
-<meta name="twitter:description" content="在控制台敲指令时，经常碰到npm install –save-dev和–save 我们在使用 npm install 安装模块的模块的时候 ，一般会使用下面这几种命令形式： 1234567npm install moduleName # 安装模块到项目目录下 npm install -g moduleName # -g 的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm config">
+<meta name="twitter:title" content="React搭建工程脚手架">
+<meta name="twitter:description" content="基础安装 安装node 安装git VSCode  create-react-app基础脚手架安装create-react-app 1npm install -g create-react-app  安装完成后 123create-react-app react-plan cd react-test/npm start  结束后，在浏览器访问localhost:3000,可以看到默认应用 ###">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/06/npmInstall/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/06/React搭建工程脚手架/">
 
 
 
 
 
-  <title>npm install 时--save-dev和--save的区别 | Yuqi Qin's Blog</title>
+  <title>React搭建工程脚手架 | Yuqi Qin's Blog</title>
   
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/npmInstall/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/React搭建工程脚手架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yuqi Qin">
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">npm install 时--save-dev和--save的区别</h1>
+          <h1 class="post-title" itemprop="name headline">React搭建工程脚手架</h1>
         
 
         <div class="post-meta">
@@ -329,37 +329,19 @@
       
 
       
-        <p>在控制台敲指令时，经常碰到npm install –save-dev和–save</p>
-<p>我们在使用 npm install 安装模块的模块的时候 ，一般会使用下面这几种命令形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install moduleName # 安装模块到项目目录下</span><br><span class="line"> </span><br><span class="line">npm install -g moduleName # -g 的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm config prefix 的位置。</span><br><span class="line"> </span><br><span class="line">npm install -save moduleName # -save 的意思是将模块安装到项目目录下，并在package文件的dependencies节点写入依赖。</span><br><span class="line"> </span><br><span class="line">npm install -save-dev moduleName # -save-dev 的意思是将模块安装到项目目录下，并在package文件的devDependencies节点写入依赖。</span><br></pre></td></tr></table></figure>
-
-<h2 id="npm-install-moduleName-命令"><a href="#npm-install-moduleName-命令" class="headerlink" title="npm install moduleName 命令"></a>npm install moduleName 命令</h2><ol>
-<li>安装模块到项目node_modules目录下。</li>
-<li>不会将模块依赖写入devDependencies或dependencies 节点。</li>
-<li>运行 npm install 初始化项目时不会下载模块。</li>
-</ol>
-<h2 id="npm-install-g-moduleName-命令"><a href="#npm-install-g-moduleName-命令" class="headerlink" title="npm install -g moduleName 命令"></a>npm install -g moduleName 命令</h2><ol>
-<li>安装模块到全局，不会在项目node_modules目录中保存模块包。</li>
-<li>不会将模块依赖写入devDependencies或dependencies 节点。</li>
-<li>运行 npm install 初始化项目时不会下载模块。</li>
-</ol>
-<h2 id="npm-install-save-moduleName-命令"><a href="#npm-install-save-moduleName-命令" class="headerlink" title="npm install -save moduleName 命令"></a>npm install -save moduleName 命令</h2><ol>
-<li>安装模块到项目node_modules目录下。</li>
-<li>会将模块依赖写入dependencies 节点。</li>
-<li>运行 npm install 初始化项目时，会将模块下载到项目目录下。</li>
-<li>运行npm install –production或者注明NODE_ENV变量值为production时，会自动下载模块到node_modules目录中。</li>
-</ol>
-<h2 id="npm-install-save-dev-moduleName-命令"><a href="#npm-install-save-dev-moduleName-命令" class="headerlink" title="npm install -save-dev moduleName 命令"></a>npm install -save-dev moduleName 命令</h2><ol>
-<li>安装模块到项目node_modules目录下。</li>
-<li>会将模块依赖写入devDependencies 节点。</li>
-<li>运行 npm install 初始化项目时，会将模块下载到项目目录下。</li>
-<li>运行npm install –production或者注明NODE_ENV变量值为production时，不会自动下载模块到node_modules目录中。</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>dependencies是运行时依赖，devDependencies是开发时的依赖。</p>
-<ul>
-<li>devDependencies 下列出的模块，我们在发布后用不到它，而只是在我们开发才用到它。</li>
-<li>dependencies 下的模块，则是我们发布后还需要依赖的模块，譬如像react或者Angular框架类似的，我们在开发完后后肯定还要依赖它们，否则就运行不了。</li>
+        <h3 id="基础安装"><a href="#基础安装" class="headerlink" title="基础安装"></a>基础安装</h3><ul>
+<li>安装node</li>
+<li>安装git</li>
+<li>VSCode</li>
 </ul>
+<h3 id="create-react-app基础脚手架"><a href="#create-react-app基础脚手架" class="headerlink" title="create-react-app基础脚手架"></a>create-react-app基础脚手架</h3><p>安装create-react-app</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create-react-app react-plan </span><br><span class="line">cd react-test/</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<p>结束后，在浏览器访问<code>localhost:3000</code>,可以看到默认应用</p>
+<p>###</p>
 
       
     </div>
@@ -384,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/06/createblog/" rel="next" title="基于Hexo的github博客搭建">
-                <i class="fa fa-chevron-left"></i> 基于Hexo的github博客搭建
+              <a href="/2019/10/06/npm install --save-dev和--save的区别/" rel="next" title="npm install 时--save-dev和--save的区别">
+                <i class="fa fa-chevron-left"></i> npm install 时--save-dev和--save的区别
               </a>
             
           </div>
@@ -394,8 +376,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/06/react1/" rel="prev" title="React搭建工程脚手架">
-                React搭建工程脚手架 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/06/Object.defineProperty/" rel="prev" title="Object.defineProperty()">
+                Object.defineProperty() <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -475,7 +457,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -540,7 +522,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-moduleName-命令"><span class="nav-number">1.</span> <span class="nav-text">npm install moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-g-moduleName-命令"><span class="nav-number">2.</span> <span class="nav-text">npm install -g moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-save-moduleName-命令"><span class="nav-number">3.</span> <span class="nav-text">npm install -save moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-save-dev-moduleName-命令"><span class="nav-number">4.</span> <span class="nav-text">npm install -save-dev moduleName 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础安装"><span class="nav-number">1.</span> <span class="nav-text">基础安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-react-app基础脚手架"><span class="nav-number">2.</span> <span class="nav-text">create-react-app基础脚手架</span></a></li></ol></div>
             
 
           </div>

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/react1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/前端面试题总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yuqi Qin">
@@ -278,7 +278,329 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/06/react1/" itemprop="url">React搭建工程脚手架</a></h1>
+                <a class="post-title-link" href="/2019/10/06/前端面试题总结/" itemprop="url">前端面试题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T17:38:19+08:00">
+                2019-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-前端主流MVVM框架双向绑定原理简述："><a href="#1-前端主流MVVM框架双向绑定原理简述：" class="headerlink" title="1. 前端主流MVVM框架双向绑定原理简述："></a>1. 前端主流MVVM框架双向绑定原理简述：</h2><h3 id="AngularJs（脏检测机制）："><a href="#AngularJs（脏检测机制）：" class="headerlink" title="AngularJs（脏检测机制）："></a>AngularJs（脏检测机制）：</h3><p>脏检查机制，主要是依据 $watch 对象来监测数据是否更新。</p>
+<h3 id="Vue-js（前端数据对象劫持）："><a href="#Vue-js（前端数据对象劫持）：" class="headerlink" title="Vue.js（前端数据对象劫持）："></a>Vue.js（前端数据对象劫持）：</h3><p>Vue.js是通过数据劫持结合发布者-订阅者模式的方式来实现的。</p>
+<h3 id="React（手动触发绑定）："><a href="#React（手动触发绑定）：" class="headerlink" title="React（手动触发绑定）："></a>React（手动触发绑定）：</h3><p>React本身并没有提到双向绑定的概念，但是可以利用setState api对states数据进行更新，从而实现数据层于视图层的同步更新（结构更新，重新“渲染”子树（虚拟DOM），找出最小改动步骤，打包DOM操作，对真实DOM树进行修改）。</p>
+<h2 id="2-简述Vue的响应式原理"><a href="#2-简述Vue的响应式原理" class="headerlink" title="2. 简述Vue的响应式原理"></a>2. 简述Vue的响应式原理</h2><p>当一个Vue实例创建时，vue会遍历data选项的属性，用 Object.defineProperty 将它们转为 getter/setter并且在内部追踪相关依赖，在属性被访问和修改时通知变化。<br>每个组件实例都有相应的 watcher 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="3-Vue-给对象新增属性"><a href="#3-Vue-给对象新增属性" class="headerlink" title="3. Vue-给对象新增属性"></a>3. Vue-给对象新增属性</h2><p>官方定义：</p>
+<p>Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 (root-level reactive property)。然而它可以使用 Vue.set(object, key, value) 方法将响应属性添加到嵌套的对象上：</p>
+<p>Vue.set(vm.obj, ‘e’, 0)<br>您还可以使用 vm.$set 实例方法，这也是全局 Vue.set 方法的别名：</p>
+<p>this.$set(this.obj,’e’,02)</p>
+<p>有时你想向已有对象上添加一些属性，例如使用 Object.assign() 或 _.extend() 方法来添加属性。但是，添加到对象上的新属性不会触发更新。在这种情况下可以创建一个新的对象，让它包含原对象的属性和新的属性：</p>
+<p>// 代替 Object.assign(this.obj, { a: 1, e: 2 })<br>this.obj= Object.assign({}, this.obj, { a: 1, e: 2 })</p>
+<h2 id="4-网页从输入网址到渲染完成经历了哪些过程？"><a href="#4-网页从输入网址到渲染完成经历了哪些过程？" class="headerlink" title="4. 网页从输入网址到渲染完成经历了哪些过程？"></a>4. 网页从输入网址到渲染完成经历了哪些过程？</h2><p>大致可以分为如下7步：</p>
+<ul>
+<li>输入网址</li>
+<li>发送到DNS服务器，并获取域名对应的web服务器对应的ip地址</li>
+<li>与web服务器建立TCP连接</li>
+<li>浏览器向web服务器发送http请求</li>
+<li>web服务器响应请求，并返回指定url的数据（或错误信息，或重定向的新的url地址）</li>
+<li>浏览器下载web服务器返回的数据及解析html源文件</li>
+<li>生成DOM树，解析css和js，渲染页面，直至显示完成</li>
+</ul>
+<h2 id="5-jQuery获取的dom对象和原生的dom对象有何区别？"><a href="#5-jQuery获取的dom对象和原生的dom对象有何区别？" class="headerlink" title="5.  jQuery获取的dom对象和原生的dom对象有何区别？"></a>5.  jQuery获取的dom对象和原生的dom对象有何区别？</h2><p>js原生获取的dom是一个对象，jQuery对象就是一个数组对象，其实就是选择出来的元素的数组集合，所以说他们两者是不同的对象类型不等价。</p>
+<p>原生DOM对象转jQuery对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var box = document.getElementById(&apos;box&apos;);</span><br><span class="line">var $box = $(box);</span><br></pre></td></tr></table></figure>
+
+<p>jQuery对象转原生DOM对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var $box = $(&apos;#box&apos;);</span><br><span class="line">var box = $box[0];</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-v-model语法糖"><a href="#6-v-model语法糖" class="headerlink" title="6. v-model语法糖"></a>6. v-model语法糖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;input v-model=&quot;something&quot;&gt;</span><br><span class="line">等于</span><br><span class="line">&lt;input v-bind:value=&quot;something&quot; v-on:input=&quot;something = $event.target.value&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>v-model=”something”则表示将value值绑定在something上，当值发生改变时触发绑定的oninput事件。oninput事件绑定的函数是将触发oninput事件的目标（该input）的value值赋值给something这个变量。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/Object.defineProperty/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yuqi Qin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/qyq.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuqi Qin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/06/Object.defineProperty/" itemprop="url">Object.defineProperty()</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T17:38:19+08:00">
+                2019-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="两种定义形式的区别"><a href="#两种定义形式的区别" class="headerlink" title="两种定义形式的区别"></a>两种定义形式的区别</h2><h3 id="1-直接定义"><a href="#1-直接定义" class="headerlink" title="1.直接定义"></a>1.直接定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">obj.name = &apos;jack&apos;</span><br><span class="line">//obj[&apos;name&apos;] = &apos;jack&apos;</span><br></pre></td></tr></table></figure>
+
+<p>等同于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">Object.defineProperty(obj,&apos;name&apos;,&#123;</span><br><span class="line">    value:&apos;jack&apos;,</span><br><span class="line">    writable:true,</span><br><span class="line">    configurable:true,</span><br><span class="line">    enumberable:true</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Object-defineProperty-定义"><a href="#2-Object-defineProperty-定义" class="headerlink" title="2.Object.defineProperty()定义"></a>2.Object.defineProperty()定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj,&apos;name&apos;,&#123;</span><br><span class="line">    value:&apos;jack&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>等同于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">Object.defineProperty(obj,&apos;name&apos;,&#123;</span><br><span class="line">    value:&apos;jack&apos;,</span><br><span class="line">    writable:false,</span><br><span class="line">    configurable:false,</span><br><span class="line">    enumberable:false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-defineProperty-语法说明"><a href="#Object-defineProperty-语法说明" class="headerlink" title="Object.defineProperty()语法说明"></a>Object.defineProperty()语法说明</h2><p><code>Object.defineProperty(obj, prop, desc)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj : 需要定义属性的当前对象</span><br><span class="line">prop : 当前需要定义的属性名</span><br><span class="line">desc : 属性描述符</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>描述符</th>
+<th>configurable</th>
+<th>enumerable</th>
+<th>value</th>
+<th>writable</th>
+<th>get</th>
+<th>set</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据描述符</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>存取描述符</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id="描述符参数实例说明"><a href="#描述符参数实例说明" class="headerlink" title="描述符参数实例说明"></a>描述符参数实例说明</h3><h4 id="get-amp-set"><a href="#get-amp-set" class="headerlink" title="get &amp; set"></a>get &amp; set</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get</span><br><span class="line">一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。当访问该属性时，该方法会被执行，方法执行时没有参数传入，但是会传入this对象（由于继承关系，这里的this并不一定是定义该属性的对象）。 默认为 undefined。</span><br><span class="line">set</span><br><span class="line">一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。当属性值修改时，触发执行该方法。该方法将接受唯一参数，即该属性新的参数值。 默认为 undefined。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let Person = &#123;&#125;</span><br><span class="line">let temp = null</span><br><span class="line">Object.defineProperty(Person, &apos;name&apos;, &#123;</span><br><span class="line">  get: function () &#123;</span><br><span class="line">    return temp</span><br><span class="line">  &#125;,</span><br><span class="line">  set: function (val) &#123;</span><br><span class="line">    temp = val</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="configurable"><a href="#configurable" class="headerlink" title="configurable"></a>configurable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">当且仅当该属性的 configurable 为 true 时，该属性描述符才能够被改变，同时该属性也能从对应的对象上被删除。默认为 false。</span><br><span class="line"></span><br><span class="line">这个属性起到两个作用：</span><br><span class="line">(1)目标属性是否可以使用delete删除</span><br><span class="line">(2)目标属性是否可以再次设置特性</span><br></pre></td></tr></table></figure>
+
+<h4 id="enumerable"><a href="#enumerable" class="headerlink" title="enumerable"></a>enumerable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当且仅当该属性的enumerable为true时，该属性才能够出现在对象的枚举属性中。默认为 false。</span><br></pre></td></tr></table></figure>
+
+<h4 id="value"><a href="#value" class="headerlink" title="value"></a>value</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认为 undefined。</span><br></pre></td></tr></table></figure>
+
+<h4 id="writable"><a href="#writable" class="headerlink" title="writable"></a>writable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当且仅当该属性的writable为true时，value才能被赋值运算符改变。默认为 false。</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/React搭建工程脚手架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yuqi Qin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/qyq.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuqi Qin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/06/React搭建工程脚手架/" itemprop="url">React搭建工程脚手架</a></h1>
         
 
         <div class="post-meta">
@@ -391,7 +713,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/npmInstall/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/npm install --save-dev和--save的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yuqi Qin">
@@ -410,7 +732,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/06/npmInstall/" itemprop="url">npm install 时--save-dev和--save的区别</a></h1>
+                <a class="post-title-link" href="/2019/10/06/npm install --save-dev和--save的区别/" itemprop="url">npm install 时--save-dev和--save的区别</a></h1>
         
 
         <div class="post-meta">
@@ -541,7 +863,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/createblog/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/基于Hexo的github博客搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yuqi Qin">
@@ -560,7 +882,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/06/createblog/" itemprop="url">基于Hexo的github博客搭建</a></h1>
+                <a class="post-title-link" href="/2019/10/06/基于Hexo的github博客搭建/" itemprop="url">基于Hexo的github博客搭建</a></h1>
         
 
         <div class="post-meta">
@@ -738,7 +1060,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
