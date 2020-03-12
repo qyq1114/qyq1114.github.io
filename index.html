@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/前端面试题总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/前端面试题总结2019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yuqi Qin">
@@ -278,7 +278,158 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/06/前端面试题总结/" itemprop="url">前端面试题总结</a></h1>
+                <a class="post-title-link" href="/2019/10/15/前端面试题总结2019/" itemprop="url">前端面试题总结2019</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-15T23:12:07+08:00">
+                2019-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-HTTP-304状态码"><a href="#1-HTTP-304状态码" class="headerlink" title="1.HTTP 304状态码"></a>1.HTTP 304状态码</h2><p>客户端在请求一个文件的时候，发现自己缓存的文件有 Last Modified ，那么在请求中会包含 If Modified Since ，这个时间就是缓存文件的 Last Modified 。因此，如果请求中包含 If Modified Since，就说明已经有缓存在客户端。服务端只要判断这个时间和当前请求的文件的修改时间就可以确定是返回 304 还是 200 。<br>对于静态文件，例如：CSS、图片，服务器会自动完成 Last Modified 和 If Modified Since 的比较，完成缓存或者更新。但是对于动态页面，就是动态产生的页面，往往没有包含 Last Modified 信息，这样浏览器、网关等都不会做缓存，也就是在每次请求的时候都完成一个 200 的请求。<br>因此，对于动态页面做缓存加速，首先要在 Response 的 HTTP Header 中增加 Last Modified 定义，其次根据 Request 中的 If Modified Since 和被请求内容的更新时间来返回 200 或者 304 。虽然在返回 304 的时候已经做了一次数据库查询，但是可以避免接下来更多的数据库查询，并且没有返回页面内容而只是一个 HTTP Header，从而大大的降低带宽的消耗，对于用户的感觉也是提高。当这些缓存有效的时候，通过 Fiddler 或HttpWatch 查看一个请求会得到这样的结果：</p>
+<h2 id="2-缓存的分类"><a href="#2-缓存的分类" class="headerlink" title="2.缓存的分类"></a>2.缓存的分类</h2><p>在Web应用领域，Web缓存大致可以分为以下几种类型：</p>
+<ol>
+<li><p>数据库数据缓存<br>Web应用，特别是社交网络服务类型的应用，往往关系比较复杂，数据库表繁多，如果频繁进行数据库查询，很容易导致数据库不堪重荷。为了提供查询的性能，会将查询后的数据放到内存中进行缓存，下次查询时，直接从内存缓存直接返回，提供响应效率。比如常用的缓存方案有memcached,redis等。  </p>
+</li>
+<li><p>服务器端缓存</p>
+<ul>
+<li><p>代理服务器缓存<br>代理服务器是浏览器和源服务器之间的中间服务器，浏览器先向这个中间服务器发起Web请求，经过处理后（比如权限验证，缓存匹配等），再将请求转发到源服务器。代理服务器缓存的运作原理跟浏览器的运作原理差不多，只是规模更大。可以把它理解为一个共享缓存，不只为一个用户服务，一般为大量用户提供服务，因此在减少相应时间和带宽使用方面很有效，同一个副本会被重用多次。常见代理服务器缓存解决方案有Squid,Nginx,Apache等。</p>
+</li>
+<li><p>CDN缓存<br>CDN（Content delivery networks）缓存，也叫网关缓存、反向代理缓存。CDN缓存一般是由网站管理员自己部署，为了让他们的网站更容易扩展并获得更好的性能。浏览器先向CDN网关发起Web请求，网关服务器后面对应着一台或多台负载均衡源服务器，会根据它们的负载请求，动态将请求转发到合适的源服务器上。虽然这种架构负载均衡源服务器之间的缓存没法共享，但却拥有更好的处扩展性。从浏览器角度来看，整个CDN就是一个源服务器，浏览器和服务器之间的缓存机制，在这种架构下同样适用。</p>
+</li>
+</ul>
+</li>
+<li><p>浏览器端缓存<br>浏览器缓存根据一套与服务器约定的规则进行工作，在同一个会话过程中会检查一次并确定缓存的副本足够新。如果你浏览过程中，比如前进或后退，访问到同一个图片，这些图片可以从浏览器缓存中调出而即时显现。</p>
+</li>
+<li><p>Web应用层缓存<br>应用层缓存指的是从代码层面上，通过代码逻辑和缓存策略，实现对数据，页面，图片等资源的缓存，可以根据实际情况选择将数据存在文件系统或者内存中，减少数据库查询或者读写瓶颈，提高响应效率。</p>
+<h2 id="3-前端性能优化"><a href="#3-前端性能优化" class="headerlink" title="3.前端性能优化"></a>3.前端性能优化</h2><p>减少http请求数量：就是资源的合并<br>减少http请求大小：就是资源的压缩</p>
+<h2 id="4-HTTPS比HTTP慢的原因"><a href="#4-HTTPS比HTTP慢的原因" class="headerlink" title="4.HTTPS比HTTP慢的原因"></a>4.HTTPS比HTTP慢的原因</h2><p>HTTPs链接比不加密的HTTP链接慢很多。</p>
+</li>
+</ol>
+<p>HTTPs链接和HTTP链接都建立在TCP协议之上。HTTP链接比较单纯，使用三个握手数据包建立连接之后，就可以发送内容数据了。</p>
+<p>客户端首先发送SYN数据包，然后服务器发送SYN+ACK数据包，最后客户端发送ACK数据包，接下来就可以发送内容了。这三个数据包的发送过程，叫做TCP握手。</p>
+<p>再来看HTTPs链接，它也采用TCP协议发送数据，所以它也需要上面的这三步握手过程。而且，在这三步结束以后，它还有一个SSL握手。</p>
+<p>HTTP耗时 = TCP握手</p>
+<p>HTTPs耗时 = TCP握手 + SSL握手<br> 所以，HTTPs肯定比HTTP耗时，这就叫SSL延迟。</p>
+<p>命令行工具curl有一个w参数，可以用来测量TCP握手和SSL握手的具体耗时，以访问支付宝为例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -w &quot;TCP handshake: %&#123;time_connect&#125;， SSL handshake: %&#123;time_appconnect&#125;\n&quot; -so </span><br><span class="line">/dev/null https://www.alipay.comTCP handshake: 0.022, SSL handshake: 0.064</span><br></pre></td></tr></table></figure>
+
+<p> 上面命令中的w参数表示指定输出格式，timeconnect变量表示TCP握手的耗时，timeappconnect变量表示SSL握手的耗时，s参数和o参数用来关闭标准输出。</p>
+<p>从运行结果可以看到，SSL握手的耗时（64毫秒）大概是TCP握手（22毫秒）的三倍。</p>
+<p>也就是说，在建立连接的阶段，HTTPs链接比HTTP链接要长3倍的时间，具体数字取决于CPU的快慢。</p>
+<p>所以，如果是对安全性要求不高的场合，为了提高网页性能，建议不要采用保密强度很高的数字证书。一般场合下，1024位的证书已经足够了，2048位和4096位的证书将进一步延长SSL握手的耗时。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/VUE前端面试题总结2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yuqi Qin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/qyq.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuqi Qin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/06/VUE前端面试题总结2019/" itemprop="url">VUE前端面试题总结2019</a></h1>
         
 
         <div class="post-meta">
@@ -371,12 +522,13 @@
 <p>③ 动态路由传参: 路由path位置为<code>/home/:foo</code>，然后输入url，如: <code>localhost:8080/home/1</code> 然后通过<code>this.$route.params.foo</code>获取传递过来的参数</p>
 <h2 id="11-v-on-常用修饰符"><a href="#11-v-on-常用修饰符" class="headerlink" title="11.v-on 常用修饰符"></a>11.v-on 常用修饰符</h2><p>.stop 该修饰符将阻止事件向上冒泡。同理于调用 event.stopPropagation() 方法，即如果当前元素添加了.stop修饰符，那么当点击该元素时候，click事件不会冒泡到其父元素上，即父元素不会触发click事件。<br>.prevent 该修饰符会阻止当前事件的默认行为。同理于调用 event.preventDefault() 方法，即如果&lt;a href=”<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a> @click.stop=”show”&gt;连接，点击后默认会跳转到百度，但是添加上.stop修饰符之后，就不会跳转到百度了，而是执行show()方法了。<br>.self 该指令只有当事件是从事件绑定的元素本身触发时才触发回调，即冒泡事件到达该元素上时，并不会触发事件，但是其不影响事件继续向上冒泡，其父元素仍然会触发冒泡事件<br>.native 就是给自定义组件的根元素添加一个原生事件，所以其通常用在自定义组件上，如果给普通的HTML元素添加.native修饰符，那么该HTML元素将无法监听到该事件了。<br>.capture 就是让事件监听变成捕获，默认为冒泡，通常用于修饰父元素，如果给父元素添加@click.capture修饰符，那么当点击子元素的时候，父元素的click事件将先触发，然后才是子元素的click事件。<br>.once 该修饰符表示绑定的事件只会被触发一次。</p>
 <h2 id="12-vue中的-ref"><a href="#12-vue中的-ref" class="headerlink" title="12.vue中的 ref"></a>12.vue中的 ref</h2><p>ref 被用来给元素或子组件注册引用信息，引用信息将会注册在父组件的 $refs 对象上，即类似于给组件或者DOM元素上添加一个标识id，然后通过这个标识id拿到对应的DOM元素或组件实例，如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例。</p>
-<h2 id="13-route和-router的区别"><a href="#13-route和-router的区别" class="headerlink" title="13.$route和$router的区别"></a>13.$route和$router的区别</h2><p>$route是”路由信息对象”，包括path，params，hash，query，fullPath，matched，name等路由信息参数。<br>$router是”路由实例”对象包括了路由的跳转方法，钩子函数等。</p>
+<h2 id="13-route和-router的区别"><a href="#13-route和-router的区别" class="headerlink" title="13. $route和$router的区别"></a>13. <code>$route</code>和<code>$router</code>的区别</h2><p>$route是”路由信息对象”，包括path，params，hash，query，fullPath，matched，name等路由信息参数。<br>$router是”路由实例”对象包括了路由的跳转方法，钩子函数等。</p>
 <h2 id="14-Vue定义组件"><a href="#14-Vue定义组件" class="headerlink" title="14.Vue定义组件"></a>14.Vue定义组件</h2><p>全局定义：调用Vue的component()方法创建，Vue.component(组件名, {template: 模板字符串})<br>​局部定义：在创建Vue实例时传递的options对象中的components对象中进行定义，components:{组件名: {template: 模板字符串}}<br>单文件组件：在.vue文件中定义，包含template，script，style三部分。</p>
 <h2 id="15-Vue-cli的src文件夹中有哪些文件"><a href="#15-Vue-cli的src文件夹中有哪些文件" class="headerlink" title="15.Vue-cli的src文件夹中有哪些文件"></a>15.Vue-cli的src文件夹中有哪些文件</h2><p>assets文件夹是放静态资源；<br>components是放组件；<br>router是定义路由相关的配置;<br>view视图；<br>app.vue是一个应用主组件；<br>main.js是入口文件</p>
 <h2 id="16-对于MVVM的理解"><a href="#16-对于MVVM的理解" class="headerlink" title="16.对于MVVM的理解"></a>16.对于MVVM的理解</h2><p>MVVM 是 Model-View-ViewModel 的缩写。<br>Model代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑。<br>View 代表UI 组件，它负责将数据模型转化成UI 展现出来。<br>ViewModel 监听模型数据的改变和控制视图行为、处理用户交互，简单理解就是一个同步View 和 Model的对象，连接Model和View。<br>在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。<br>ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</p>
 <h2 id="17-vue等单页面应用及其优缺点"><a href="#17-vue等单页面应用及其优缺点" class="headerlink" title="17.vue等单页面应用及其优缺点"></a>17.vue等单页面应用及其优缺点</h2><p>优点：Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件，核心是一个响应的数据绑定系统。MVVM、数据驱动、组件化、轻量、简洁、高效、快速、模块友好。<br>缺点：不支持低版本的浏览器，最低只支持到IE9；不利于SEO的优化（如果要支持SEO，建议通过服务端来进行渲染组件）；第一次加载首页耗时相对长一些；不可以使用浏览器的导航按钮需要自行实现前进、后退。</p>
-<h2 id="18-计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景"><a href="#18-计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景" class="headerlink" title="18. 计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景"></a>18. 计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景</h2><p>methods VS 计算属性<br>我们可以将同一函数定义为一个 method 而不是一个计算属性。对于最终的结果，两种方式确实是相同的。<br>然而，不同的是计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。<br>相比而言，只要发生重新渲染，method 调用总会执行该函数。总之，重新计算开销很大的话请选计算属性，不希望有缓存的请选methods。<br>watch VS 计算属性<br>当你在模板内使用了复杂逻辑的表达式时，你应当使用计算属性。<br>侦听属性是一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。<br>当你有一些数据需要随着其它数据变动而变动时，或者当需要在数据变化时执行异步或开销较大的操作时，你可以使用 watch。</p>
+<h2 id="18-计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景"><a href="#18-计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景" class="headerlink" title="18. 计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景"></a>18. 计算属性（computed）、方法（methods）和侦听属性（watch）的区别与使用场景</h2><h3 id="methods-VS-computed"><a href="#methods-VS-computed" class="headerlink" title="*methods VS computed"></a>*methods VS computed</h3><p>我们可以将同一函数定义为一个 method 而不是一个计算属性。对于最终的结果，两种方式确实是相同的。<br>然而，不同的是计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。<br>相比而言，只要发生重新渲染，method 调用总会执行该函数。总之，重新计算开销很大的话请选计算属性，不希望有缓存的请选methods。</p>
+<h3 id="watch-VS-computed"><a href="#watch-VS-computed" class="headerlink" title="*watch VS computed"></a>*watch VS computed</h3><p>当你在模板内使用了复杂逻辑的表达式时，你应当使用计算属性。<br>侦听属性是一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。<br>当你有一些数据需要随着其它数据变动而变动时，或者当需要在数据变化时执行异步或开销较大的操作时，你可以使用 watch。</p>
 <h2 id="19-axios是什么？怎么使用？"><a href="#19-axios是什么？怎么使用？" class="headerlink" title="19.axios是什么？怎么使用？"></a>19.axios是什么？怎么使用？</h2><p>axios是基于Promise的，用于浏览器和nodeJS的http客户端，主要作用就是向后台发送请求。其存在许多优点:</p>
 <ul>
 <li>支持Promise</li>
@@ -429,6 +581,7 @@
 <li>Watcher订阅者是Observer和Compile之间通信的桥梁，主要做的事情是:1、在自身实例化时往属性订阅器(dep)里面添加自己；2、自身必须有一个update()方法；3、待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。</li>
 <li>MVVM作为数据绑定的入口，整合Observer、Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，达到数据变化 -&gt; 视图更新；视图交互变化(input) -&gt; 数据model变更的双向绑定效果。</li>
 </ul>
+<p><a href="https://www.jianshu.com/p/c4dfc5806178" target="_blank" rel="noopener">https://www.jianshu.com/p/c4dfc5806178</a></p>
 <h2 id="28-Vue组件复用时，vue-router如何响应路由参数的变化"><a href="#28-Vue组件复用时，vue-router如何响应路由参数的变化" class="headerlink" title="28.Vue组件复用时，vue-router如何响应路由参数的变化"></a>28.Vue组件复用时，vue-router如何响应路由参数的变化</h2><p>当使用路由参数时，例如从 /user/lucy 导航到 /user/lily，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用，复用组件时，想对路由参数的变化作出响应的话，有两种方式:</p>
 <ul>
 <li><p>监听$route对象数据变化</p>
@@ -449,6 +602,12 @@
 <li><p>activated钩子 则不受缓存的影响，每次重新回到主页都会执行。</p>
 </li>
 </ul>
+<h2 id="32-vue-中的-data为什么是函数而不是属性值？"><a href="#32-vue-中的-data为什么是函数而不是属性值？" class="headerlink" title="32.vue 中的 data为什么是函数而不是属性值？"></a>32.vue 中的 data为什么是函数而不是属性值？</h2><p>当data定义为对象后，这就表示所有的组件实例共用了一份data数据，因此，无论在哪个组件实例中修改了data,都会影响到所有的组件实例。组件中的data写成一个函数，数据以函数返回值形式定义，这样每复用一次组件，就会返回一份新的data，类似于给每个组件实例创建一个私有的数据空间，让各个组件实例维护各自的数据。而单纯的写成对象形式，就使得所有组件实例共用了一份data，就会造成一个变了全都会变的结果。</p>
+<h2 id="33-Vue-nextTick"><a href="#33-Vue-nextTick" class="headerlink" title="33.Vue.nextTick"></a>33.Vue.nextTick</h2><p>在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。<br><a href="https://www.cnblogs.com/hity-tt/p/6729118.html" target="_blank" rel="noopener">https://www.cnblogs.com/hity-tt/p/6729118.html</a></p>
+<h2 id="34-vue-父子组件通信方式"><a href="#34-vue-父子组件通信方式" class="headerlink" title="34.vue 父子组件通信方式"></a>34.vue 父子组件通信方式</h2><ol>
+<li>通过prop向子组件传递数据，子组件向父组件传递数值$emit</li>
+<li>Vuex</li>
+</ol>
 
           
         
@@ -1149,7 +1308,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1218,7 +1377,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
