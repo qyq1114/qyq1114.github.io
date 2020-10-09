@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="react生命周期有哪些组件载入阶段：componentWillMount:组件即将被装载、渲染到页面上，只调用1次componentDidMount:组件真正在被装载之后，这里可以拿到真实DOM执行操作，只调用1次 运行中状态：componentWillReceiveProps(nextProps):组件将要接收到新属性的时候调用，在这时setState不会触发额外的render,因为此时已经有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="REACT面试题总结">
+<meta property="og:url" content="http://yoursite.com/2020/03/30/React面试题总结/index.html">
+<meta property="og:site_name" content="Yuqi Qin&#39;s Blog">
+<meta property="og:description" content="react生命周期有哪些组件载入阶段：componentWillMount:组件即将被装载、渲染到页面上，只调用1次componentDidMount:组件真正在被装载之后，这里可以拿到真实DOM执行操作，只调用1次 运行中状态：componentWillReceiveProps(nextProps):组件将要接收到新属性的时候调用，在这时setState不会触发额外的render,因为此时已经有">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-04-09T14:25:22.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="REACT面试题总结">
+<meta name="twitter:description" content="react生命周期有哪些组件载入阶段：componentWillMount:组件即将被装载、渲染到页面上，只调用1次componentDidMount:组件真正在被装载之后，这里可以拿到真实DOM执行操作，只调用1次 运行中状态：componentWillReceiveProps(nextProps):组件将要接收到新属性的时候调用，在这时setState不会触发额外的render,因为此时已经有">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/30/React面试题总结/">
+
+
+
+
+
+  <title>REACT面试题总结 | Yuqi Qin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yuqi Qin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/30/React面试题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yuqi Qin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/qyq.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuqi Qin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">REACT面试题总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-30T12:03:29+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="react生命周期有哪些"><a href="#react生命周期有哪些" class="headerlink" title="react生命周期有哪些"></a>react生命周期有哪些</h2><h4 id="组件载入阶段："><a href="#组件载入阶段：" class="headerlink" title="组件载入阶段："></a>组件载入阶段：</h4><p>componentWillMount:组件即将被装载、渲染到页面上，只调用1次<br>componentDidMount:组件真正在被装载之后，这里可以拿到真实DOM执行操作，只调用1次</p>
+<h4 id="运行中状态："><a href="#运行中状态：" class="headerlink" title="运行中状态："></a>运行中状态：</h4><p>componentWillReceiveProps(nextProps):组件将要接收到新属性的时候调用，在这时setState不会触发额外的render,因为此时已经有一次来自父组件引发的render了。</p>
+<p>shouldComponentUpdate:组件接受到新属性或者新状态的时候（返回 false，接收数据后不更新，阻止 render ，后面的函数不会继续执行）</p>
+<p>这个方法用来判断是否需要调用 render 方法重绘 dom。<br>因为 dom 的描绘非常消耗性能，如果我们能在这个方法中能够写出更优化的 dom diff 算法，可以极大的提高性能。</p>
+<p>componentWillUpdate:组件即将更新不能修改属性和状态<br>componentDidUpdate:组件已经更新</p>
+<h4 id="销毁阶段："><a href="#销毁阶段：" class="headerlink" title="销毁阶段："></a>销毁阶段：</h4><p>componentWillUnmount:组件即将销毁，这时候可以销毁绑定的事件监听或者定时器什么的。</p>
+<p>有些好像把render也算进生命周期了：<br>render:组件在这里生成虚拟的 DOM 节点</p>
+<p><a href="https://www.jianshu.com/p/b331d0e4b398" target="_blank" rel="noopener">https://www.jianshu.com/p/b331d0e4b398</a></p>
+<h2 id="为什么不能用数组下标来作为react组件中的key？"><a href="#为什么不能用数组下标来作为react组件中的key？" class="headerlink" title="为什么不能用数组下标来作为react组件中的key？"></a>为什么不能用数组下标来作为react组件中的key？</h2><p>react 使用diff算法，使用key来做同级比对。如果使用数组下标作为key，有以下情况：<br>在数组头部或中部插入或删除元素： 所有key对应的节点的值发生更改，进行重新渲染。造成性能损耗<br>而如果使用数组中唯一值来作为key：不管是在何处插入或删除节点，其他key对应的节点的值未发生更改，只需插入或删除操作的数组节点。</p>
+<h2 id="react的diff算法是怎么完成的"><a href="#react的diff算法是怎么完成的" class="headerlink" title="react的diff算法是怎么完成的"></a>react的diff算法是怎么完成的</h2><ol>
+<li>把树形结构按照层级分解，只比较同级元素。</li>
+<li>通过给列表结构的每个单元添加的唯一 key值进行区分同层次的子节点的比较。</li>
+<li>React 只会匹配相同 class 的 component（这里面的 class 指的是组件的名字）</li>
+<li>合并操作，调用 component 的 setState 方法的时候, React 将其标记为 dirty.<br> 到每一个事件循环结束, React 检查所有标记 dirty 的 component 重新绘制。</li>
+<li>选择性渲染。开发人员可以重写 shouldComponentUpdate 提高 diff 的性能。</li>
+</ol>
+<p><a href="https://www.jianshu.com/p/3ba0822018cf" target="_blank" rel="noopener">https://www.jianshu.com/p/3ba0822018cf</a></p>
+<h2 id="react虚拟DOM实现原理，以及为什么虚拟-dom-会提高性能"><a href="#react虚拟DOM实现原理，以及为什么虚拟-dom-会提高性能" class="headerlink" title="react虚拟DOM实现原理，以及为什么虚拟 dom 会提高性能"></a>react虚拟DOM实现原理，以及为什么虚拟 dom 会提高性能</h2><ol>
+<li>用 js对象结构表示 DOM 树的结构；然后用这个树构建一个真正的 DOM 树，插到文档当中。</li>
+<li>当状态变更的时候，重新构造一棵新的对象树。然后对比新旧虚拟DOM树，记录两棵树差异。</li>
+<li>把 2 所记录的差异应用到步骤 1 所构建的真正的 DOM 树上，视图就更新了。</li>
+</ol>
+<p>原因：虚拟 dom 相当于在 js 和真实 dom 中间加了一个缓存，利用 dom diff 算法减少了对真实DOM的操作次数，从而提高性能。</p>
+<h2 id="react怎么从虚拟dom中拿出真实dom"><a href="#react怎么从虚拟dom中拿出真实dom" class="headerlink" title="react怎么从虚拟dom中拿出真实dom"></a>react怎么从虚拟dom中拿出真实dom</h2><p>Refs 是 React 提供给我们的安全访问 DOM 元素或者某个组件实例的句柄。<br>我们可以为元素添加 ref 属性然后在回调函数中接受该元素在 DOM 树中的句柄，该值会作为回调函数的第一个参数返回。或者ref可以传字符串。</p>
+<p>例如：<code>&lt;input ref=((input)=&gt;{return this.name=input}) /&gt;</code>， this.name.value取值<br>或者 <code>&lt;input ref=&quot;name&quot; /&gt;</code>，this.refs.name取值</p>
+<h2 id="React中的props和state的用法"><a href="#React中的props和state的用法" class="headerlink" title="React中的props和state的用法"></a>React中的props和state的用法</h2><ul>
+<li>state 是一种数据结构，用于组件挂载时所需数据的默认值。state 可能会随着时间的推移而发生突变，但多数时候是作为用户事件行为的结果。</li>
+<li>props则是组件的配置。props 由父组件传递给子组件，并且就子组件而言，props 是不可变的(immutable)。</li>
+</ul>
+<h2 id="react组件之间如何通信"><a href="#react组件之间如何通信" class="headerlink" title="react组件之间如何通信"></a>react组件之间如何通信</h2><p>父子：父传子：props； 子传父：子调用父组件中的函数并传参；<br>兄弟：利用redux实现。</p>
+<h2 id="react的setState的原理及用法"><a href="#react的setState的原理及用法" class="headerlink" title="react的setState的原理及用法"></a>react的setState的原理及用法</h2><h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>当调用setState时，它并不会立即改变，而是会把要修改的状态放入一个任务队列，等到事件循环结束时，再合并指更新。<br>因此，setState有 异步，合并更新更新两个特性。</p>
+<p>Batch Update：<a href="https://zhuanlan.zhihu.com/p/28532725" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28532725</a></p>
+<h4 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h4><p>1.最常见的用法就是传入一个对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.setState(&#123;</span><br><span class="line">    isLoading:false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>2.还可以接收一个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">this.setState((prevState,props)=&gt;&#123;</span><br><span class="line">    // 要做的事件</span><br><span class="line">    return &#123;isLoading:false&#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3.因为setState是异步的，所以它还可以接收第二个参数，一个回调函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.setState(&#123;count:2&#125;,()=&gt;&#123;</span><br><span class="line">    isLoading:this.state.count===2 ? true : false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="setState为什么是异步的"><a href="#setState为什么是异步的" class="headerlink" title="setState为什么是异步的"></a>setState为什么是异步的</h2><p><a href="https://segmentfault.com/a/1190000013040438" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013040438</a></p>
+<ol>
+<li>保证内部的一致性<br>因为props是要等到父组件渲染过后才能拿到，也就是不能同步更新，state出于统一性设成异步更新。</li>
+<li>性能优化<br>举例说你正在一个聊天窗口输入，如果来了一条新消息又要render,那就会阻塞你的当前操作，导致延迟什么的。</li>
+<li>支持state在幕后渲染<br>异步可以使state在幕后更新，而不影响你当前旧的页面的交互，提升用户体验。<br>详情可以点击上面的参考链接，写的很详细的。</li>
+</ol>
+<p>另外：setstate在原生事件，setTimeout,setInterval,promise等异步操作中，state会同步更新。</p>
+<p><a href="https://segmentfault.com/a/1190000014131698" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014131698</a></p>
+<h2 id="react的优势以及特点"><a href="#react的优势以及特点" class="headerlink" title="react的优势以及特点"></a>react的优势以及特点</h2><h4 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h4><ol>
+<li>实现对虚拟DOM的操作，使得它速度快，提高了Web性能。</li>
+<li>组件化，模块化。react里每一个模块都是一个组件，组件化开发，可维护性高。</li>
+<li>单向数据流，比较有序，有便于管理，它随着React视图库的开发而被Facebook概念化。</li>
+<li>跨浏览器兼容：虚拟DOM帮助我们解决了跨浏览器问题，它为我们提供了标准化的API，甚至在IE8中都是没问题的。</li>
+</ol>
+<h4 id="不足："><a href="#不足：" class="headerlink" title="不足："></a>不足：</h4><ol>
+<li>react中只是MVC模式的View部分，要依赖引入很多其他模块开发。、</li>
+<li>当父组件进行重新渲染操作时，即使子组件的props或state没有做出任何改变，也会同样进行重新渲染。</li>
+</ol>
+<h4 id="特点："><a href="#特点：" class="headerlink" title="特点：　"></a>特点：　</h4><ol>
+<li>声明式设计：React采用声明范式，可以轻松描述应用。</li>
+<li>高效：React通过对DOM的模拟，最大限度地减少与DOM的交互。</li>
+<li>灵活：React可以与已知的库或框架很好地配合。</li>
+</ol>
+<h2 id="React如何性能优化"><a href="#React如何性能优化" class="headerlink" title="React如何性能优化"></a>React如何性能优化</h2><ol>
+<li><p>充分利用shouldComponentUpdate函数，不过这需要你的组件尽量最小化，如果当前组件数据过于复杂，其实是很难优化的。</p>
+</li>
+<li><p>给你的DOM遍历上加上唯一的key,注意尽量不要用index,因为如果你新DOM中删了某一个节点，它会重新排列index，<br>那跟原来同层级一比就都会完全不一样，而重新渲染了，所以最好使用id值什么的作key值。</p>
+</li>
+<li><p>能用const声明的就用const。</p>
+</li>
+<li><p>DOM里少用箭头函数，当然其实要传参时也还是得用。再者，函数bind尽量写在constructor，避免每次render重新bind。</p>
+</li>
+<li><p>减少对真实DOM的操作。</p>
+</li>
+<li><p>如果是用webpack搭建环境的话，当一个包过大加载过慢时，可分打成多个包来优化。</p>
+</li>
+</ol>
+<h2 id="react与vue的对比"><a href="#react与vue的对比" class="headerlink" title="react与vue的对比"></a>react与vue的对比</h2><p>相同点：</p>
+<ol>
+<li>都用虚拟DOM实现快速渲染</li>
+<li>我觉得父子，兄弟通信这些都挺像的，也都有自己的状态管理器：react=&gt;redux, vue=&gt;vuex</li>
+<li>都是轻量级框架</li>
+<li>现在vue也在渐渐吸收react中的一些语法，比如JSX语法，类式声明写法等</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>React属于单向数据流——MVC模式，vue则属于双向——MVVM模式。</li>
+<li>react兼容性比vue好，vue不兼容IE8.</li>
+<li>react采用JSX语法，vue采用的则是html模板语法。</li>
+<li>vue的css可以有组件的私有作用域，react则没有。</li>
+<li>react比vue好的另一点是，它是团队维护，而vue属于个人，一般来说，大型项目更倾向于react，小型则用vue，当然这也不是绝对。</li>
+</ol>
+<h2 id="Redux的实现流程"><a href="#Redux的实现流程" class="headerlink" title="Redux的实现流程"></a>Redux的实现流程</h2><p>用户页面行为触发一个Action，然后，Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action。Reducer 会返回新的 State 。每当state更新之后，view会根据state触发重新渲染。</p>
+<h2 id="react-redux的实现原理"><a href="#react-redux的实现原理" class="headerlink" title="react-redux的实现原理"></a>react-redux的实现原理</h2><p>Redux作为一个通用模块，主要还是用来处理应用中state的变更，通过react-redux做连接，可以在React+Redux的项目中将两者结合的更好。<br>react-redux是一个轻量级的封装库，它主要通过两个核心方法实现：</p>
+<p>Provider：从最外部封装了整个应用，并向connect模块传递store。<br>Connect：<br>    1、包装原组件，将state和action通过props的方式传入到原组件内部。<br>    2、监听store tree变化，使其包装的原组件可以响应state变化</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Yuqi Qin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Yuqi Qin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/15/前端面试题总结/" rel="next" title="前端面试题总结">
+                <i class="fa fa-chevron-left"></i> 前端面试题总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/15/git常用指令/" rel="prev" title="git常用指令">
+                git常用指令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/qyq.jpg" alt="Yuqi Qin">
+            
+              <p class="site-author-name" itemprop="name">Yuqi Qin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/qyq1114" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:qyq1114@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/qyq1114" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/lady1114" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#react生命周期有哪些"><span class="nav-number">1.</span> <span class="nav-text">react生命周期有哪些</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组件载入阶段："><span class="nav-number">1.0.1.</span> <span class="nav-text">组件载入阶段：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行中状态："><span class="nav-number">1.0.2.</span> <span class="nav-text">运行中状态：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#销毁阶段："><span class="nav-number">1.0.3.</span> <span class="nav-text">销毁阶段：</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么不能用数组下标来作为react组件中的key？"><span class="nav-number">2.</span> <span class="nav-text">为什么不能用数组下标来作为react组件中的key？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react的diff算法是怎么完成的"><span class="nav-number">3.</span> <span class="nav-text">react的diff算法是怎么完成的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react虚拟DOM实现原理，以及为什么虚拟-dom-会提高性能"><span class="nav-number">4.</span> <span class="nav-text">react虚拟DOM实现原理，以及为什么虚拟 dom 会提高性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react怎么从虚拟dom中拿出真实dom"><span class="nav-number">5.</span> <span class="nav-text">react怎么从虚拟dom中拿出真实dom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React中的props和state的用法"><span class="nav-number">6.</span> <span class="nav-text">React中的props和state的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react组件之间如何通信"><span class="nav-number">7.</span> <span class="nav-text">react组件之间如何通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react的setState的原理及用法"><span class="nav-number">8.</span> <span class="nav-text">react的setState的原理及用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理："><span class="nav-number">8.0.1.</span> <span class="nav-text">原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用："><span class="nav-number">8.0.2.</span> <span class="nav-text">使用：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setState为什么是异步的"><span class="nav-number">9.</span> <span class="nav-text">setState为什么是异步的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react的优势以及特点"><span class="nav-number">10.</span> <span class="nav-text">react的优势以及特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优势："><span class="nav-number">10.0.1.</span> <span class="nav-text">优势：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不足："><span class="nav-number">10.0.2.</span> <span class="nav-text">不足：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点："><span class="nav-number">10.0.3.</span> <span class="nav-text">特点：　</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React如何性能优化"><span class="nav-number">11.</span> <span class="nav-text">React如何性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react与vue的对比"><span class="nav-number">12.</span> <span class="nav-text">react与vue的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux的实现流程"><span class="nav-number">13.</span> <span class="nav-text">Redux的实现流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react-redux的实现原理"><span class="nav-number">14.</span> <span class="nav-text">react-redux的实现原理</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuqi Qin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

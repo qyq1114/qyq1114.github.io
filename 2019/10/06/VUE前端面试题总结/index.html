@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Yuqi Qin&#39;s Blog">
 <meta property="og:description" content="简述Vue的响应式原理（Vue的双向数据绑定原理）当一个Vue实例创建时，vue会遍历data选项的属性，用 Object.defineProperty 将它们转为 getter/setter并且在内部追踪相关依赖，在属性被访问和修改时通知变化。每个组件实例都有相应的 watcher 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-26T10:06:58.697Z">
+<meta property="og:updated_time" content="2020-03-27T03:54:42.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VUE前端面试题总结">
 <meta name="twitter:description" content="简述Vue的响应式原理（Vue的双向数据绑定原理）当一个Vue实例创建时，vue会遍历data选项的属性，用 Object.defineProperty 将它们转为 getter/setter并且在内部追踪相关依赖，在属性被访问和修改时通知变化。每个组件实例都有相应的 watcher 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher">
@@ -444,8 +444,8 @@
 <li>通过prop向子组件传递数据，子组件向父组件传递数值$emit</li>
 <li>Vuex</li>
 </ol>
-<h2 id="Vue-路由的实现-hash模式-和-history模式"><a href="#Vue-路由的实现-hash模式-和-history模式" class="headerlink" title="Vue 路由的实现 hash模式 和 history模式"></a>Vue 路由的实现 hash模式 和 history模式</h2><p>hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；<br>特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面。<br>hash 模式下，仅 hash 符号之前的内容会被包含在请求中，如<a href="http://www.xxx.com，因此对于后端来说，即使没有做到对路由的全覆盖，也不会返回" target="_blank" rel="noopener">http://www.xxx.com，因此对于后端来说，即使没有做到对路由的全覆盖，也不会返回</a> 404 错误。</p>
-<p>history模式：history采用HTML5的新特性；且提供了两个新方法：pushState()，replaceState()可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。<br>history 模式下，前端的 URL 必须和实际向后端发起请求的 URL 一致，如<a href="http://www.xxx.com/items/id。后端如果缺少对" target="_blank" rel="noopener">http://www.xxx.com/items/id。后端如果缺少对</a> /items/id 的路由处理，将返回 404 错误。Vue-Router 官网里如此描述：“不过这种模式要玩好，还需要后台配置支持……所以呢，你要在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。</p>
+<h2 id="Vue-路由的实现-hash模式-和-history模式"><a href="#Vue-路由的实现-hash模式-和-history模式" class="headerlink" title="Vue 路由的实现 hash模式 和 history模式"></a>Vue 路由的实现 hash模式 和 history模式</h2><p>hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；<br>特点：hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全无用，hash不会重加载页面。<br>hash 模式下，仅 hash 符号之前的内容会被包含在请求中，如<code>http://www.xxx.com</code>，因此对于后端来说，即使没有做到对路由的全覆盖，也不会返回 404 错误。</p>
+<p>history模式：history采用HTML5的新特性；且提供了两个新方法：pushState()，replaceState()可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。<br>history 模式下，前端的 URL 必须和实际向后端发起请求的 URL 一致，如<code>http://www.xxx.com/items/id</code>。后端如果缺少对 /items/id 的路由处理，将返回 404 错误。Vue-Router 官网里如此描述：“不过这种模式要玩好，还需要后台配置支持……所以呢，你要在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。</p>
 <p><a href="https://www.jianshu.com/p/bfffb4b8c9fa" target="_blank" rel="noopener">https://www.jianshu.com/p/bfffb4b8c9fa</a></p>
 
       
@@ -591,7 +591,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
